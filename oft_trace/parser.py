@@ -9,6 +9,7 @@ from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn
 
 from oft_trace.models import SpecItem
+from oft_trace.analyzer import TraceAnalyzer  # Add this import
 
 console = Console()
 
@@ -40,6 +41,9 @@ def parse_aspec_file(aspec_file: str) -> Tuple[Dict[str, SpecItem], defaultdict,
         
         # Find broken chains
         broken_chains = identify_broken_chains(spec_items)
+        
+        # Analyze the aspec file
+        analyzer = analyze_aspec(spec_items, id_map, covering_map, covered_by_map, broken_chains)
         
         return spec_items, id_map, covering_map, covered_by_map, broken_chains
     
@@ -150,3 +154,14 @@ def identify_broken_chains(spec_items):
         if item.coverage_type != "COVERED":
             broken_chains.append(item_key)
     return broken_chains
+
+def analyze_aspec(spec_items, id_map, covering_map, covered_by_map, broken_chains):
+    """Analyze the specification items and identify issues."""
+    # Create analyzer instance
+    analyzer = TraceAnalyzer(spec_items, id_map, covering_map, covered_by_map, broken_chains)
+    
+    # Detect circular dependencies using all spec items
+    analyzer.detect_circular_dependencies(list(spec_items.values()))
+    
+    # Return the analyzer for further processing
+    return analyzer

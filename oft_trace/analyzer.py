@@ -223,3 +223,162 @@ class TraceAnalyzer:
                 by_doctype[doctype]["uncovered"] += 1
         
         return by_doctype
+
+    def detect_circular_dependencies(self, items):
+        """Detect circular dependencies in the trace items."""
+        # Build a directed graph representation
+        graph = {}
+        for item in items:
+            # Make sure we're accessing properties correctly
+            # Some items might be dictionaries instead of SpecItem objects
+            if isinstance(item, dict):
+                item_id = item['id']
+                item_version = item.get('version', '1')
+                item_covers = item.get('covers', [])
+            else:
+                item_id = item.id
+                item_version = item.version
+                item_covers = item.covers
+                
+            item_key = f"{item_id}~{item_version}"
+            if item_key not in graph:
+                graph[item_key] = []
+            
+            # Add edges for all covered items
+            for covered in item_covers:
+                if isinstance(covered, dict):
+                    covered_id = covered['id']
+                    covered_version = covered.get('version', '1')
+                else:
+                    covered_id = covered.id
+                    covered_version = covered.version
+                    
+                covered_key = f"{covered_id}~{covered_version}"
+                if covered_key not in graph:
+                    graph[covered_key] = []
+                graph[item_key].append(covered_key)
+        
+        # Find circular dependencies using DFS
+        circular_items = set()
+        
+        def find_cycles(node, path=None, visited=None):
+            if path is None:
+                path = []
+            if visited is None:
+                visited = set()
+            
+            # Mark the current node as visited and part of current path
+            visited.add(node)
+            path.append(node)
+            
+            # Recur for all neighbors
+            for neighbor in graph.get(node, []):
+                if neighbor in path:
+                    # Found a cycle
+                    cycle_start = path.index(neighbor)
+                    cycle = path[cycle_start:]
+                    # Add all items in the cycle to circular_items
+                    for cycle_item in cycle:
+                        circular_items.add(cycle_item)
+                elif neighbor not in visited:
+                    find_cycles(neighbor, path[:], visited)
+            
+            # Remove node from the current path
+            path.pop()
+        
+        # Start DFS from each node
+        for node in graph:
+            if node not in circular_items:
+                visited = set()
+                find_cycles(node, [], visited)
+        
+        # Update the items with circular dependency info
+        for item in items:
+            if isinstance(item, dict):
+                item_id = item['id']
+                item_version = item.get('version', '1')
+            else:
+                item_id = item.id
+                item_version = item.version
+                
+            item_key = f"{item_id}~{item_version}"
+            if item_key in circular_items:
+                # For dictionary items, we need to handle differently than SpecItem objects
+                if isinstance(item, dict):
+                    item['in_circular_dependency'] = True
+                    # Can't set coverage_type on a dict, handle accordingly
+                else:
+                    item.in_circular_dependency = True
+                    item.add_failure_reason("♻️ Item is part of a circular dependency chain")
+                    # Instead of setting coverage_type directly, use a method if available
+                    if hasattr(item, 'set_coverage_type'):
+                        item.set_coverage_type("UNCOVERED")
+                    elif hasattr(item, 'mark_as_uncovered'):
+                        item.mark_as_uncovered()
+                    # Otherwise, we need to adapt to the SpecItem implementation
+                
+        # Also check for unwanted coverage which can contribute to circular dependencies
+        coverage_rules = self._build_coverage_rules(items)
+        for item in items:
+            self.analyze_unwanted_coverage(item, coverage_rules)
+        
+    def _build_coverage_rules(self, items):
+        """Build a map of valid coverage rules based on artifact types.
+        
+        According to OFT design, this defines which artifact types need coverage
+        from which other artifact types.
+        """
+        # Default trace rules according to OFT design doc
+        # Format: doctype -> [list of doctypes that can cover it]
+        default_rules = {
+            'feat': ['req', 'dsn', 'impl', 'test'],  # features can be covered by any type
+            'req': ['dsn', 'impl', 'test'],  # requirements covered by design, impl or test
+            'dsn': ['impl', 'test'],         # design covered by implementation or test
+            'impl': ['test'],                # implementation covered by test
+            'utest': [],                     # unit tests don't need coverage
+            'itest': [],                     # integration tests don't need coverage
+            'stest': [],                     # system tests don't need coverage
+        }
+        
+        # Try to extract rules from items if they have needs_coverage attribute
+        coverage_rules = {}
+        for doctype in set(item.doctype.lower() for item in items if hasattr(item, 'doctype') and item.doctype):
+            coverage_rules[doctype] = default_rules.get(doctype.lower(), [])
+        
+        return coverage_rules
+
+    def analyze_unwanted_coverage(self, item, coverage_rules):
+        """Check if an item has unwanted coverage relationships"""
+        if not hasattr(item, 'covers') or not hasattr(item, 'doctype'):
+            return
+        
+        item_doctype = item.doctype.lower() if item.doctype else None
+        if not item_doctype:
+            return
+            
+        for covered in item.covers:
+            # Get the covered item's information
+            if isinstance(covered, dict):
+                covered_id = covered.get('id')
+                covered_version = covered.get('version', '1')
+            else:
+                covered_id = covered.id
+                covered_version = covered.version
+                
+            covered_key = f"{covered_id}~{covered_version}"
+            covered_item = self.spec_items.get(covered_key)
+            
+            if covered_item and hasattr(covered_item, 'doctype') and covered_item.doctype:
+                covered_doctype = covered_item.doctype.lower()
+                
+                # Check if this is an unwanted coverage relationship
+                if covered_doctype in coverage_rules and item_doctype not in coverage_rules.get(covered_doctype, []):
+                    if hasattr(item, 'add_failure_reason'):
+                        item.add_failure_reason(f"❌ Unwanted coverage to {covered_key} ({covered_item.doctype})")
+                    
+                    # Instead of setting coverage_type directly, use a method if available
+                    if hasattr(item, 'set_coverage_type'):
+                        item.set_coverage_type("UNCOVERED")
+                    elif hasattr(item, 'mark_as_uncovered'):
+                        item.mark_as_uncovered()
+                    # Otherwise, we need to adapt to the SpecItem implementation
