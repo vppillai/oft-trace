@@ -17,11 +17,16 @@ class SpecItem:
         self.sourceline = ""
         self.coverage = {}
         self.covers = []
+        self.in_circular_dependency = False
         
     @property
     def is_orphaned(self) -> bool:
         """Check if this item is orphaned (not covered by any other item)."""
         if 'coveringItems' not in self.coverage or not self.coverage['coveringItems']:
+            # Check if this is an implementation type or a "leaf" type that doesn't need coverage
+            if self.doctype.lower() in ['impl', 'implementation', 'code', 'test', 'testcase']:
+                # If this item covers something else, it's a valid leaf node 
+                return len(self.covers) == 0
             return True
         return False
     
@@ -56,6 +61,17 @@ class SpecItem:
     @property
     def coverage_type(self) -> str:
         """Get a descriptive type of coverage issue."""
+        # Handle special cases first
+        
+        # 1. Circular dependency
+        if self.in_circular_dependency:
+            return "CIRCULAR"
+            
+        # 2. Implementation items that cover other items don't need to be covered themselves
+        if self.doctype.lower() in ['impl', 'implementation', 'code', 'test', 'testcase'] and self.covers:
+            return "COVERED"
+            
+        # Regular flow for other items
         if self.is_outdated:
             return "OUTDATED"
         if self.is_shallow_covered:

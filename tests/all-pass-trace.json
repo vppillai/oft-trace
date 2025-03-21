@@ -1,0 +1,50 @@
+
+{
+  "timestamp": "2025-03-20T18:09:14.844587",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/all-pass.aspec",
+  "summary": {
+    "total_items": 4,
+    "broken_chains": 0,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "req": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "dsn": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "impl": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 4,
+    "orphaned": 0,
+    "shallow": 0,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0
+  },
+  "items": []
+}

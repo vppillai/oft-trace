@@ -2,17 +2,19 @@
 import os
 import sys
 import time
+import json  # Add this import for JSON serialization
 from typing import Optional
 from datetime import datetime
 
 import typer
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn
+from rich.panel import Panel
 
 # Use absolute imports instead of relative
 from oft_trace.parser import parse_aspec_file
 from oft_trace.analyzer import TraceAnalyzer
-from oft_trace.reporter import print_report_header, display_coverage_summary, analyze_and_display_failure
+from oft_trace.reporter import print_report_header, display_coverage_summary, analyze_and_display_failure, generate_json_report
 from oft_trace.visualizer import create_rich_tree, create_ascii_chain
 
 app = typer.Typer(help="Analyze and display trace chains for OpenFastTrace specification items")
@@ -102,7 +104,6 @@ def trace(
                 print(f"{header:^80}")
                 print("=" * 80 + "\n")
             else:
-                from rich.panel import Panel
                 console.print(Panel(f"[bold]{header}[/]", width=80))
             
             # Display visual representation
@@ -303,7 +304,8 @@ def trace_failures(
     limit: Optional[int] = typer.Option(None, "--limit", "-l", 
                                       help="Limit the number of failures to analyze"),
     include_covered: bool = typer.Option(False, "--include-covered", "-a",
-                                      help="Include all items including covered ones")
+                                      help="Include all items including covered ones"),
+    format: str = typer.Option("text", "--format", "-f", help="Output format: text or json")
 ):
     """
     Analyze and report on all broken chains in the aspec file with improved clarity.
@@ -336,6 +338,29 @@ def trace_failures(
     # Create analyzer
     analyzer = TraceAnalyzer(spec_items, id_map, covering_map, covered_by_map, broken_chains, aspec_file)
     
+    # Get all items or just broken chains
+    if include_covered:
+        items_to_analyze = list(spec_items.keys())
+    else:
+        items_to_analyze = broken_chains
+    
+    # Limit the number of items to analyze
+    if limit and limit < len(items_to_analyze):
+        items_to_analyze = items_to_analyze[:limit]
+    
+    # JSON format handling
+    if format.lower() == "json":
+        json_report = generate_json_report(analyzer, items_to_analyze, include_covered)
+        
+        if output_file:
+            with open(output_file, 'w') as f:
+                json.dump(json_report, f, indent=2)
+            console.print(f"[green]JSON report saved to {output_file}[/]")
+        else:
+            print(json.dumps(json_report, indent=2))
+        return
+    
+    # Default text format output
     # If output file is specified, redirect output
     original_stdout = None
     if output_file:
@@ -346,12 +371,6 @@ def trace_failures(
         # Print report header
         print_report_header(aspec_file, bool(output_file))
         
-        # Get all items or just broken chains
-        if include_covered:
-            items_to_analyze = list(spec_items.keys())
-        else:
-            items_to_analyze = broken_chains
-        
         # Overview of failures
         if not items_to_analyze:
             if output_file:
@@ -359,10 +378,6 @@ def trace_failures(
             else:
                 console.print("\n[green]No issues found in the report![/]")
             return
-        
-        # Limit the number of items to analyze
-        if limit and limit < len(items_to_analyze):
-            items_to_analyze = items_to_analyze[:limit]
         
         # Print header
         if output_file:
@@ -400,6 +415,122 @@ def trace_failures(
             sys.stdout.close()
             sys.stdout = original_stdout
             console.print(f"[green]Analysis written to {output_file}[/]")
+
+
+@app.command()
+def docs(
+    output_file: Optional[str] = typer.Option(None, "--output", "-o", help="Output file for documentation"),
+    format: str = typer.Option("markdown", "--format", "-f", help="Output format: markdown or plain")
+):
+    """
+    Generate documentation for all commands.
+    
+    This command auto-generates comprehensive documentation based on command help text and docstrings.
+    """
+    import inspect
+    
+    # Generate documentation header
+    result = ["# OFT-Trace Command Documentation", 
+              "\nOFT-Trace is a tool for analyzing and visualizing traceability chains in OpenFastTrace specification items.",
+              "\n## Commands\n"]
+    
+    # Get all commands using Typer's built-in help system
+    from typer.main import get_command
+    import click
+    
+    # Get the underlying Click command
+    click_command = get_command(app)
+    
+    # Extract commands
+    commands = []
+    for cmd_name in click_command.commands:
+        cmd = click_command.commands[cmd_name]
+        commands.append((cmd_name, cmd))
+    
+    # Sort commands alphabetically
+    commands.sort(key=lambda x: x[0])
+    
+    # Generate documentation for each command
+    for cmd_name, cmd in commands:
+        # Command title and description
+        result.append(f"## {cmd_name}")
+        
+        # Get help text
+        help_text = cmd.help or ""
+        result.append(f"\n{help_text}\n")
+        
+        # Usage
+        result.append("### Usage")
+        usage = f"```\noft-trace {cmd_name}"
+        
+        # Arguments and options
+        for param in cmd.params:
+            if isinstance(param, click.Argument):
+                name = param.name or ""
+                if param.required:
+                    usage += f" <{name}>"
+                else:
+                    usage += f" [{name}]"
+            
+        usage += " [OPTIONS]"
+        usage += "\n```"
+        result.append(usage)
+        
+        # Parameters section
+        result.append("\n### Parameters")
+        
+        # Arguments
+        has_arguments = False
+        for param in cmd.params:
+            if isinstance(param, click.Argument):
+                if not has_arguments:
+                    result.append("\n#### Arguments")
+                    has_arguments = True
+                
+                name = param.name or ""
+                help_text = getattr(param, "help", "") or ""
+                result.append(f"- `{name}`: {help_text}")
+        
+        # Options
+        has_options = False
+        for param in cmd.params:
+            if isinstance(param, click.Option):
+                if not has_options:
+                    result.append("\n#### Options")
+                    has_options = True
+                
+                # Format option names
+                opt_names = []
+                for opt in param.opts:
+                    opt_names.append(f"`{opt}`")
+                
+                opt_str = ", ".join(opt_names)
+                help_text = param.help or ""
+                
+                # Add default value if present
+                if param.default is not None and param.default != "" and not param.is_flag:
+                    help_text += f" (Default: {param.default})"
+                
+                result.append(f"- {opt_str}: {help_text}")
+        
+        # Add separator
+        result.append("\n---\n")
+    
+    # Combine all documentation
+    docs_content = "\n".join(result)
+    
+    # Output according to format
+    if format.lower() != "markdown":
+        # Strip markdown for plain text
+        docs_content = docs_content.replace("#", "").replace("```", "").replace("`", "")
+    
+    # Save or print
+    if output_file:
+        with open(output_file, 'w') as f:
+            f.write(docs_content)
+        console.print(f"[green]Documentation written to {output_file}[/]")
+    else:
+        print(docs_content)
 
 
 def main():

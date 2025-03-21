@@ -156,3 +156,57 @@ def analyze_and_display_failure(analyzer, item_key, index, total, output_file=Fa
         console.print("\n[bold]Trace chain visualization:[/]")
         tree = create_rich_tree(analyzer, item_key, direction='both')
         console.print(tree)
+
+def generate_json_report(analyzer, items_to_analyze=None, include_all=False):
+    """Generate a JSON-serializable report structure."""
+    report = {
+        "timestamp": datetime.now().isoformat(),
+        "aspec_file": os.path.abspath(analyzer.aspec_file) if analyzer.aspec_file else None,
+        "summary": {
+            "total_items": len(analyzer.spec_items),
+            "broken_chains": len(analyzer.broken_chains),
+            "coverage_by_type": {}
+        },
+        "items": []
+    }
+    
+    # Add coverage summary by type
+    categories = analyzer.categorize_items_by_coverage()
+    for category, items in categories.items():
+        report["summary"][category.lower()] = len(items)
+    
+    # Add special case for circular dependencies 
+    circular_items = [k for k, v in analyzer.spec_items.items() if hasattr(v, 'in_circular_dependency') and v.in_circular_dependency]
+    report["summary"]["circular"] = len(circular_items)
+    
+    # Add coverage by doctype
+    doctype_stats = analyzer.count_coverage_by_doctype()
+    for doctype, stats in doctype_stats.items():
+        report["summary"]["coverage_by_type"][doctype] = stats
+    
+    # Add item details if requested
+    if items_to_analyze:
+        for item_key in items_to_analyze:
+            if include_all or analyzer.spec_items[item_key].coverage_type != "COVERED":
+                item = analyzer.spec_items[item_key]
+                item_data = {
+                    "id": item.id,
+                    "key": item_key,
+                    "version": item.version,
+                    "doctype": item.doctype,
+                    "title": getattr(item, "shortdesc", ""),
+                    "source": {
+                        "file": item.sourcefile,
+                        "line": item.sourceline
+                    },
+                    "coverage_type": item.coverage_type,
+                    "in_circular_dependency": getattr(item, "in_circular_dependency", False),
+                    "failure_reasons": analyzer.determine_failure_reasons(item_key) if item.coverage_type != "COVERED" else [],
+                    "covers": item.covers,
+                    "covered_by": [
+                        covering for covering in item.coverage.get('coveringItems', [])
+                    ]
+                }
+                report["items"].append(item_data)
+    
+    return report

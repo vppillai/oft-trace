@@ -17,40 +17,129 @@ Learn more about OpenFastTrace at: [itsallcode/openfasttrace](https://github.com
 pip install oft-trace
 ```
 
-## Usage
-### Command Line Interface
-The tool provides several commands:
+## Commands
 
-#### Overview Analysis
+## docs
 
-```bash
-oft-trace trace path/to/report.aspec
+Generate documentation for all commands.
+
+This command auto-generates comprehensive documentation based on command help text and docstrings.
+
+### Usage
+```
+oft-trace docs [OPTIONS]
 ```
 
-#### Analyzing a Specific Item
+### Parameters
 
-```bash
-oft-trace trace path/to/report.aspec ITEM-123
+#### Options
+- `--output`, `-o`: Output file for documentation
+- `--format`, `-f`: Output format: markdown or plain (Default: markdown)
+
+---
+
+## list-items
+
+List all specification items in the aspec file with improved filtering.
+
+### Usage
+```
+oft-trace list-items <aspec_file> [OPTIONS]
 ```
 
+### Parameters
 
-#### Finding Broken Chains
+#### Arguments
+- `aspec_file`: Path to the aspec XML file
 
-```bash
-oft-trace trace-failures path/to/report.aspec
+#### Options
+- `--doctype`, `-t`: Filter by document type
+- `--status`, `-s`: Filter by status
+- `--coverage`, `-c`: Filter by coverage status (COVERED, UNCOVERED, ORPHANED, SHALLOW, OUTDATED)
+- `--output`, `-o`: Path to output file (if not specified, print to console)
+
+---
+
+## trace
+
+Analyze and display the trace chain for a specification item in an aspec XML file.
+
+If spec_id is not provided, shows an overview of the entire report.
+
+### Usage
 ```
-#### Listing Items with Filtering
-
-```bash
-oft-trace list-items path/to/report.aspec --doctype req --coverage UNCOVERED
+oft-trace trace <aspec_file> [spec_id] [OPTIONS]
 ```
 
-#### Common Options
-- `--output/-o`: Path to output file (HTML or text)
-- `--limit/-l`: Limit the number of items to analyze
-- `--doctype/-t`: Filter by document type
-- `--coverage/-c`: Filter by coverage status (`COVERED`, `UNCOVERED`, `ORPHANED`, `SHALLOW`, `OUTDATED`)
-- `--direction/-d`: Direction of links to trace (`both`, `incoming`, `outgoing`)
+### Parameters
+
+#### Arguments
+- `aspec_file`: Path to the aspec XML file
+- `spec_id`: ID of the specification item to analyze (if omitted, shows overview)
+
+#### Options
+- `--version`, `-v`: Specific version of the item to trace
+- `--doctype`, `-t`: Filter by document type
+- `--direction`, `-d`: Direction of links to trace: both, incoming, or outgoing (Default: both)
+- `--output`, `-o`: Path to output file (if not specified, print to console)
+- `--details`: Show detailed trace information
+- `--visual`: Show visual representation of trace chain
+
+---
+
+## trace-failures
+
+Analyze and report on all broken chains in the aspec file with improved clarity.
+
+This command identifies items with coverage issues and analyzes the reasons 
+for the failures in detail. Can output in machine-readable format for CI/testing.
+
+Examples:
+    oft-trace trace-failures data.aspec
+    oft-trace trace-failures data.aspec --format json --output report.json
+    oft-trace trace-failures data.aspec --limit 5 --include-covered
+
+### Usage
+```
+oft-trace trace-failures <aspec_file> [OPTIONS]
+```
+
+### Parameters
+
+#### Arguments
+- `aspec_file`: Path to the aspec XML file
+
+#### Options
+- `--output`, `-o`: Path to output file (if not specified, print to console)
+- `--limit`, `-l`: Limit the number of failures to analyze
+- `--include-covered`, `-a`: Include all items including covered ones
+- `--format`, `-f`: Output format: text, json, or summary (Default: text)
+
+---
+
+## validate
+
+Validate trace coverage for CI/CD pipelines and return appropriate exit code.
+
+This command is optimized for use in automated tests and CI environments.
+It performs a trace analysis and returns a non-zero exit code if any trace failures exist.
+
+### Usage
+```
+oft-trace validate <aspec_file> [OPTIONS]
+```
+
+### Parameters
+
+#### Arguments
+- `aspec_file`: Path to the aspec XML file
+
+#### Options
+- `--exit-on-failure`: Exit with non-zero code if trace failures exist
+- `--exclude`, `-e`: Comma-separated list of document types to exclude from validation
+- `--output`, `-o`: Write validation results to file in JSON format
+
+
 
 ## Understanding the Reports
 ### Coverage Types

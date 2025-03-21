@@ -108,12 +108,43 @@ class TraceAnalyzer:
         return None
     
     def determine_failure_reasons(self, item_key):
-        """Determine the reasons for chain failure with improved clarity."""
+        """Determine the reasons for an item's coverage failure."""
         item = self.spec_items.get(item_key)
         if not item:
             return ["Item not found in report"]
         
         reasons = []
+        
+        # Check for circular dependencies first
+        if item.in_circular_dependency:
+            # Find the items this item has bidirectional relationships with
+            bi_directional_with = []
+            
+            # Check covers relationships
+            for covered_ref in item.covers:
+                covered_id = covered_ref.get('id')
+                covered_version = covered_ref.get('version', '1')
+                covered_key = f"{covered_id}~{covered_version}"
+                
+                # Check if the covered item also covers this item (bidirectional)
+                if covered_key in self.spec_items and item_key in self.covered_by_map.get(covered_key, []):
+                    bi_directional_with.append(covered_id)
+            
+            if bi_directional_with:
+                reasons.append(f"⟲ Bidirectional reference with: {', '.join(bi_directional_with)}")
+            else:
+                reasons.append("⟲ Item is involved in a circular dependency chain")
+            return reasons
+            
+        # Special case for implementation items at the end of a trace chain
+        if item.doctype.lower() in ['impl', 'implementation', 'code', 'test', 'testcase'] and item.covers:
+            if item.coverage_type == "COVERED":
+                # This is correct - implementation items that cover something don't need to be covered
+                return []
+            elif item.is_orphaned:
+                # This is fine - implementation is expected to be an "orphan" if it's at the end of the chain
+                # But we don't want to report it as an issue
+                return ["✅ Implementation item properly covers upstream items and doesn't need coverage itself"]
         
         # Check for orphaned items
         if item.is_orphaned:
