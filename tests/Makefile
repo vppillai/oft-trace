@@ -103,3 +103,8 @@ docs: venv
 	@echo "Generating command documentation..."
 	venv/bin/oft-trace docs --output docs/commands.md
 	@echo "✅ Documentation generated at docs/commands.md"
+
+.PHONY: pytest
+pytest: venv install aspec
+	venv/bin/pip install pytest
+	venv/bin/python -m pytest -v test_tracing.py
