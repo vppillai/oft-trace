@@ -1,0 +1,90 @@
+Loading data from missing-design-coverage.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 2 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:30.149499",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/missing-design-coverage.aspec",
+  "summary": {
+    "total_items": 2,
+    "broken_chains": 2,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 1,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "req": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 0,
+    "orphaned": 1,
+    "shallow": 1,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "feature-design-gap",
+      "key": "feature-design-gap~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Feature Definition ",
+      "source": {
+        "file": "./missing-design-coverage.md",
+        "line": "4"
+      },
+      "coverage_type": "SHALLOW",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u26a0\ufe0f Item has shallow coverage but misses deep coverage"
+      ],
+      "covers": [],
+      "covered_by": [
+        {
+          "id": "req-design-gap",
+          "version": "1",
+          "doctype": "req",
+          "status": "approved",
+          "ownCoverageStatus": "UNCOVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "req-design-gap",
+      "key": "req-design-gap~1",
+      "version": "1",
+      "doctype": "req",
+      "title": "Requirement Definition",
+      "source": {
+        "file": "./missing-design-coverage.md",
+        "line": "11"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [
+        {
+          "id": "feature-design-gap",
+          "version": "1",
+          "doctype": "feat"
+        }
+      ],
+      "covered_by": []
+    }
+  ]
+}

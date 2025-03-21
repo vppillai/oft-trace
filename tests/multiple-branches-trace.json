@@ -1,0 +1,118 @@
+Loading data from multiple-branches.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 7 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:31.282473",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/multiple-branches.aspec",
+  "summary": {
+    "total_items": 7,
+    "broken_chains": 2,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "req": {
+        "total": 2,
+        "covered": 2,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "fdsn": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "bdsn": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "fimpl": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "bimpl": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 5,
+    "orphaned": 2,
+    "shallow": 0,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "frontend-impl",
+      "key": "frontend-impl~1",
+      "version": "1",
+      "doctype": "fimpl",
+      "title": "Frontend Implementation",
+      "source": {
+        "file": "./multiple-branches.md",
+        "line": "51"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [
+        {
+          "id": "frontend-design",
+          "version": "1",
+          "doctype": "fdsn"
+        }
+      ],
+      "covered_by": []
+    },
+    {
+      "id": "backend-impl",
+      "key": "backend-impl~1",
+      "version": "1",
+      "doctype": "bimpl",
+      "title": "Backend Implementation",
+      "source": {
+        "file": "./multiple-branches.md",
+        "line": "59"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [
+        {
+          "id": "backend-design",
+          "version": "1",
+          "doctype": "bdsn"
+        }
+      ],
+      "covered_by": []
+    }
+  ]
+}

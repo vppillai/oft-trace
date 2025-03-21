@@ -1,11 +1,11 @@
-Loading data from all-pass.aspec...
+Loading data from circular-dependency.aspec...
 ⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
-Loaded 4 items in 0.00s
+Loaded 5 items in 0.00s
 {
-  "timestamp": "2025-03-20T20:24:29.981883",
-  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/all-pass.aspec",
+  "timestamp": "2025-03-20T20:24:30.486903",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/circular-dependency.aspec",
   "summary": {
-    "total_items": 4,
+    "total_items": 5,
     "broken_chains": 0,
     "coverage_by_type": {
       "feat": {
@@ -32,6 +32,14 @@ Loaded 4 items in 0.00s
         "outdated": 0,
         "uncovered": 0
       },
+      "arch": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
       "impl": {
         "total": 1,
         "covered": 1,
@@ -41,7 +49,7 @@ Loaded 4 items in 0.00s
         "uncovered": 0
       }
     },
-    "covered": 4,
+    "covered": 5,
     "orphaned": 0,
     "shallow": 0,
     "outdated": 0,

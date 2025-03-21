@@ -1,0 +1,158 @@
+Loading data from deep-coverage-failure.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 4 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:30.318299",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/deep-coverage-failure.aspec",
+  "summary": {
+    "total_items": 4,
+    "broken_chains": 4,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 1,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "req": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 1,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "dsn": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "impl": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 0,
+    "orphaned": 2,
+    "shallow": 2,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "deep-coverage",
+      "key": "deep-coverage~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Feature Definition ",
+      "source": {
+        "file": "./deep-coverage-failure.md",
+        "line": "4"
+      },
+      "coverage_type": "SHALLOW",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u26a0\ufe0f Item has shallow coverage but misses deep coverage"
+      ],
+      "covers": [],
+      "covered_by": [
+        {
+          "id": "deep-req",
+          "version": "1",
+          "doctype": "req",
+          "status": "approved",
+          "ownCoverageStatus": "COVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "deep-req",
+      "key": "deep-req~1",
+      "version": "1",
+      "doctype": "req",
+      "title": "Requirement Definition",
+      "source": {
+        "file": "./deep-coverage-failure.md",
+        "line": "11"
+      },
+      "coverage_type": "SHALLOW",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u26a0\ufe0f Item has shallow coverage but misses deep coverage"
+      ],
+      "covers": [
+        {
+          "id": "deep-coverage",
+          "version": "1",
+          "doctype": "feat"
+        }
+      ],
+      "covered_by": [
+        {
+          "id": "deep-design",
+          "version": "1",
+          "doctype": "dsn",
+          "status": "approved",
+          "ownCoverageStatus": "UNCOVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "deep-design",
+      "key": "deep-design~1",
+      "version": "1",
+      "doctype": "dsn",
+      "title": "Design Definition",
+      "source": {
+        "file": "./deep-coverage-failure.md",
+        "line": "21"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [
+        {
+          "id": "deep-req",
+          "version": "1",
+          "doctype": "req"
+        }
+      ],
+      "covered_by": []
+    },
+    {
+      "id": "deep-impl",
+      "key": "deep-impl~1",
+      "version": "1",
+      "doctype": "impl",
+      "title": "Incomplete Implementation",
+      "source": {
+        "file": "./deep-coverage-failure.md",
+        "line": "28"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [],
+      "covered_by": []
+    }
+  ]
+}

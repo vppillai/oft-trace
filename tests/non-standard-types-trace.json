@@ -1,0 +1,90 @@
+Loading data from non-standard-types.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 5 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:31.048944",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/non-standard-types.aspec",
+  "summary": {
+    "total_items": 5,
+    "broken_chains": 1,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 1
+      },
+      "usecase": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "story": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "mockup": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "code": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 4,
+    "orphaned": 0,
+    "shallow": 0,
+    "outdated": 0,
+    "uncovered": 1,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "custom-types",
+      "key": "custom-types~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Feature",
+      "source": {
+        "file": "./non-standard-types.md",
+        "line": "4"
+      },
+      "coverage_type": "UNCOVERED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u274c Item is completely uncovered"
+      ],
+      "covers": [],
+      "covered_by": [
+        {
+          "id": "main-flow",
+          "version": "1",
+          "doctype": "usecase",
+          "status": "approved",
+          "ownCoverageStatus": "COVERED",
+          "deepCoverageStatus": "COVERED",
+          "coveringStatus": "COVERING"
+        }
+      ]
+    }
+  ]
+}

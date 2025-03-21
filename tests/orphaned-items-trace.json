@@ -1,0 +1,108 @@
+Loading data from orphaned-items.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 7 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:30.430644",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/orphaned-items.aspec",
+  "summary": {
+    "total_items": 7,
+    "broken_chains": 3,
+    "coverage_by_type": {
+      "feat": {
+        "total": 2,
+        "covered": 1,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "req": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "dsn": {
+        "total": 2,
+        "covered": 1,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "impl": {
+        "total": 2,
+        "covered": 1,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 4,
+    "orphaned": 3,
+    "shallow": 0,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "orphaned-feature",
+      "key": "orphaned-feature~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Orphaned Feature ",
+      "source": {
+        "file": "./orphaned-items.md",
+        "line": "36"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [],
+      "covered_by": []
+    },
+    {
+      "id": "orphaned-design",
+      "key": "orphaned-design~1",
+      "version": "1",
+      "doctype": "dsn",
+      "title": "Orphaned Design",
+      "source": {
+        "file": "./orphaned-items.md",
+        "line": "43"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [],
+      "covered_by": []
+    },
+    {
+      "id": "orphaned-impl",
+      "key": "orphaned-impl~1",
+      "version": "1",
+      "doctype": "impl",
+      "title": "Orphaned Implementation",
+      "source": {
+        "file": "./orphaned-items.md",
+        "line": "47"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [],
+      "covered_by": []
+    }
+  ]
+}

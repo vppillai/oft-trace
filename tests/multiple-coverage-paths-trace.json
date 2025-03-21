@@ -1,11 +1,11 @@
-Loading data from all-pass.aspec...
+Loading data from multiple-coverage-paths.aspec...
 ⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
-Loaded 4 items in 0.00s
+Loaded 7 items in 0.00s
 {
-  "timestamp": "2025-03-20T20:24:29.981883",
-  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/all-pass.aspec",
+  "timestamp": "2025-03-20T20:24:30.542586",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/multiple-coverage-paths.aspec",
   "summary": {
-    "total_items": 4,
+    "total_items": 7,
     "broken_chains": 0,
     "coverage_by_type": {
       "feat": {
@@ -17,8 +17,8 @@ Loaded 4 items in 0.00s
         "uncovered": 0
       },
       "req": {
-        "total": 1,
-        "covered": 1,
+        "total": 2,
+        "covered": 2,
         "orphaned": 0,
         "shallow": 0,
         "outdated": 0,
@@ -32,16 +32,24 @@ Loaded 4 items in 0.00s
         "outdated": 0,
         "uncovered": 0
       },
-      "impl": {
+      "arch": {
         "total": 1,
         "covered": 1,
         "orphaned": 0,
         "shallow": 0,
         "outdated": 0,
         "uncovered": 0
+      },
+      "impl": {
+        "total": 2,
+        "covered": 2,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
       }
     },
-    "covered": 4,
+    "covered": 7,
     "orphaned": 0,
     "shallow": 0,
     "outdated": 0,

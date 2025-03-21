@@ -1,0 +1,110 @@
+Loading data from long-chain.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 8 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:30.825372",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/long-chain.aspec",
+  "summary": {
+    "total_items": 8,
+    "broken_chains": 1,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "req": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "epic": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "arch": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "dsn": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "impl": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "utest": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "itest": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 7,
+    "orphaned": 1,
+    "shallow": 0,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "long-chain-itest",
+      "key": "long-chain-itest~1",
+      "version": "1",
+      "doctype": "itest",
+      "title": "Integration Test",
+      "source": {
+        "file": "./long-chain.md",
+        "line": "71"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [
+        {
+          "id": "long-chain-utest",
+          "version": "1",
+          "doctype": "utest"
+        }
+      ],
+      "covered_by": []
+    }
+  ]
+}

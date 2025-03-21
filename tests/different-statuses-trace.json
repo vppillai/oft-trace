@@ -1,0 +1,159 @@
+Loading data from different-statuses.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 5 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:30.768330",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/different-statuses.aspec",
+  "summary": {
+    "total_items": 5,
+    "broken_chains": 3,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 1
+      },
+      "req": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 1
+      },
+      "dsn": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 1
+      },
+      "impl": {
+        "total": 2,
+        "covered": 2,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 2,
+    "orphaned": 0,
+    "shallow": 0,
+    "outdated": 0,
+    "uncovered": 3,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "status-feature",
+      "key": "status-feature~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Feature (Approved)",
+      "source": {
+        "file": "./different-statuses.md",
+        "line": "4"
+      },
+      "coverage_type": "UNCOVERED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u274c Item is completely uncovered"
+      ],
+      "covers": [],
+      "covered_by": [
+        {
+          "id": "status-req",
+          "version": "1",
+          "doctype": "req",
+          "status": "draft",
+          "ownCoverageStatus": "UNCOVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "status-req",
+      "key": "status-req~1",
+      "version": "1",
+      "doctype": "req",
+      "title": "Requirement (Draft)",
+      "source": {
+        "file": "./different-statuses.md",
+        "line": "13"
+      },
+      "coverage_type": "UNCOVERED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u274c Item is completely uncovered"
+      ],
+      "covers": [
+        {
+          "id": "status-feature",
+          "version": "1",
+          "doctype": "feat"
+        }
+      ],
+      "covered_by": [
+        {
+          "id": "status-dsn",
+          "version": "1",
+          "doctype": "dsn",
+          "status": "proposed",
+          "ownCoverageStatus": "UNCOVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "status-dsn",
+      "key": "status-dsn~1",
+      "version": "1",
+      "doctype": "dsn",
+      "title": "Design (Proposed)",
+      "source": {
+        "file": "./different-statuses.md",
+        "line": "25"
+      },
+      "coverage_type": "UNCOVERED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u274c Item is completely uncovered"
+      ],
+      "covers": [
+        {
+          "id": "status-req",
+          "version": "1",
+          "doctype": "req"
+        }
+      ],
+      "covered_by": [
+        {
+          "id": "status-impl-rejected",
+          "version": "1",
+          "doctype": "impl",
+          "status": "approved",
+          "ownCoverageStatus": "COVERED",
+          "deepCoverageStatus": "COVERED",
+          "coveringStatus": "COVERING"
+        },
+        {
+          "id": "status-impl-accepted",
+          "version": "1",
+          "doctype": "impl",
+          "status": "approved",
+          "ownCoverageStatus": "COVERED",
+          "deepCoverageStatus": "COVERED",
+          "coveringStatus": "COVERING"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+Loading data from shallow-coverage.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 3 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:30.374865",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/shallow-coverage.aspec",
+  "summary": {
+    "total_items": 3,
+    "broken_chains": 3,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 1,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "req": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 1
+      },
+      "dsn": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 0,
+    "orphaned": 1,
+    "shallow": 1,
+    "outdated": 0,
+    "uncovered": 1,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "shallow-coverage",
+      "key": "shallow-coverage~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Feature Definition ",
+      "source": {
+        "file": "./shallow-coverage.md",
+        "line": "4"
+      },
+      "coverage_type": "SHALLOW",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u26a0\ufe0f Item has shallow coverage but misses deep coverage"
+      ],
+      "covers": [],
+      "covered_by": [
+        {
+          "id": "shallow-req",
+          "version": "1",
+          "doctype": "req",
+          "status": "approved",
+          "ownCoverageStatus": "UNCOVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "shallow-req",
+      "key": "shallow-req~1",
+      "version": "1",
+      "doctype": "req",
+      "title": "Requirement Definition",
+      "source": {
+        "file": "./shallow-coverage.md",
+        "line": "11"
+      },
+      "coverage_type": "UNCOVERED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u274c Item is completely uncovered"
+      ],
+      "covers": [
+        {
+          "id": "shallow-coverage",
+          "version": "1",
+          "doctype": "feat"
+        }
+      ],
+      "covered_by": [
+        {
+          "id": "shallow-design",
+          "version": "1",
+          "doctype": "dsn",
+          "status": "approved",
+          "ownCoverageStatus": "UNCOVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "shallow-design",
+      "key": "shallow-design~1",
+      "version": "1",
+      "doctype": "dsn",
+      "title": "Design Definition",
+      "source": {
+        "file": "./shallow-coverage.md",
+        "line": "21"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [
+        {
+          "id": "shallow-req",
+          "version": "1",
+          "doctype": "req"
+        }
+      ],
+      "covered_by": []
+    }
+  ]
+}

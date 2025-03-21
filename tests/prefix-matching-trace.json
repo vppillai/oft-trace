@@ -1,0 +1,20 @@
+Loading data from prefix-matching.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 0 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:31.397567",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/prefix-matching.aspec",
+  "summary": {
+    "total_items": 0,
+    "broken_chains": 0,
+    "coverage_by_type": {},
+    "covered": 0,
+    "orphaned": 0,
+    "shallow": 0,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": []
+}

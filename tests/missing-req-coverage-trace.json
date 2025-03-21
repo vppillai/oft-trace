@@ -1,0 +1,48 @@
+Loading data from missing-req-coverage.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 1 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:30.093657",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/missing-req-coverage.aspec",
+  "summary": {
+    "total_items": 1,
+    "broken_chains": 1,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 0,
+    "orphaned": 1,
+    "shallow": 0,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "missing-req-coverage",
+      "key": "missing-req-coverage~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Feature Definition ",
+      "source": {
+        "file": "./missing-req-coverage.md",
+        "line": "4"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [],
+      "covered_by": []
+    }
+  ]
+}

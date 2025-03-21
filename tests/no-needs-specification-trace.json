@@ -1,17 +1,17 @@
-Loading data from all-pass.aspec...
+Loading data from no-needs-specification.aspec...
 ⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
-Loaded 4 items in 0.00s
+Loaded 5 items in 0.00s
 {
-  "timestamp": "2025-03-20T20:24:29.981883",
-  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/all-pass.aspec",
+  "timestamp": "2025-03-20T20:24:31.566220",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/no-needs-specification.aspec",
   "summary": {
-    "total_items": 4,
-    "broken_chains": 0,
+    "total_items": 5,
+    "broken_chains": 1,
     "coverage_by_type": {
       "feat": {
-        "total": 1,
+        "total": 2,
         "covered": 1,
-        "orphaned": 0,
+        "orphaned": 1,
         "shallow": 0,
         "outdated": 0,
         "uncovered": 0
@@ -42,12 +42,31 @@ Loaded 4 items in 0.00s
       }
     },
     "covered": 4,
-    "orphaned": 0,
+    "orphaned": 1,
     "shallow": 0,
     "outdated": 0,
     "uncovered": 0,
     "unknown": 0,
     "circular": 0
   },
-  "items": []
+  "items": [
+    {
+      "id": "orphaned-no-needs",
+      "key": "orphaned-no-needs~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Orphaned Feature (No Needs)",
+      "source": {
+        "file": "./no-needs-specification.md",
+        "line": "33"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [],
+      "covered_by": []
+    }
+  ]
 }

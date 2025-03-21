@@ -1,0 +1,133 @@
+Loading data from mixed-coverage.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 6 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:30.655390",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/mixed-coverage.aspec",
+  "summary": {
+    "total_items": 6,
+    "broken_chains": 3,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 1,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "req": {
+        "total": 2,
+        "covered": 1,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "dsn": {
+        "total": 2,
+        "covered": 1,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "impl": {
+        "total": 1,
+        "covered": 1,
+        "orphaned": 0,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 3,
+    "orphaned": 2,
+    "shallow": 1,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "mixed-feature",
+      "key": "mixed-feature~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Feature Definition ",
+      "source": {
+        "file": "./mixed-coverage.md",
+        "line": "4"
+      },
+      "coverage_type": "SHALLOW",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u26a0\ufe0f Item has shallow coverage but misses deep coverage"
+      ],
+      "covers": [],
+      "covered_by": [
+        {
+          "id": "mixed-req1",
+          "version": "1",
+          "doctype": "req",
+          "status": "approved",
+          "ownCoverageStatus": "COVERED",
+          "deepCoverageStatus": "COVERED",
+          "coveringStatus": "COVERING"
+        },
+        {
+          "id": "mixed-req2",
+          "version": "1",
+          "doctype": "req",
+          "status": "approved",
+          "ownCoverageStatus": "UNCOVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "mixed-req2",
+      "key": "mixed-req2~1",
+      "version": "1",
+      "doctype": "req",
+      "title": "Requirement 2 (Uncovered)",
+      "source": {
+        "file": "./mixed-coverage.md",
+        "line": "21"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [
+        {
+          "id": "mixed-feature",
+          "version": "1",
+          "doctype": "feat"
+        }
+      ],
+      "covered_by": []
+    },
+    {
+      "id": "mixed-dsn2",
+      "key": "mixed-dsn2~1",
+      "version": "1",
+      "doctype": "dsn",
+      "title": "Design 2 (Uncovered)",
+      "source": {
+        "file": "./mixed-coverage.md",
+        "line": "38"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [],
+      "covered_by": []
+    }
+  ]
+}

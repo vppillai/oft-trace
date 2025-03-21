@@ -1,0 +1,132 @@
+Loading data from missing-impl-coverage.aspec...
+⠋ Parsing aspec file... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 0:00:00
+Loaded 3 items in 0.00s
+{
+  "timestamp": "2025-03-20T20:24:30.205157",
+  "aspec_file": "/home/vysakhpillai/temp/oft-trace/tests/reports/missing-impl-coverage.aspec",
+  "summary": {
+    "total_items": 3,
+    "broken_chains": 3,
+    "coverage_by_type": {
+      "feat": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 1,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "req": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 0,
+        "shallow": 1,
+        "outdated": 0,
+        "uncovered": 0
+      },
+      "dsn": {
+        "total": 1,
+        "covered": 0,
+        "orphaned": 1,
+        "shallow": 0,
+        "outdated": 0,
+        "uncovered": 0
+      }
+    },
+    "covered": 0,
+    "orphaned": 1,
+    "shallow": 2,
+    "outdated": 0,
+    "uncovered": 0,
+    "unknown": 0,
+    "circular": 0
+  },
+  "items": [
+    {
+      "id": "feature-impl-gap",
+      "key": "feature-impl-gap~1",
+      "version": "1",
+      "doctype": "feat",
+      "title": "Feature Definition ",
+      "source": {
+        "file": "./missing-impl-coverage.md",
+        "line": "4"
+      },
+      "coverage_type": "SHALLOW",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u26a0\ufe0f Item has shallow coverage but misses deep coverage"
+      ],
+      "covers": [],
+      "covered_by": [
+        {
+          "id": "req-impl-gap",
+          "version": "1",
+          "doctype": "req",
+          "status": "approved",
+          "ownCoverageStatus": "COVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "req-impl-gap",
+      "key": "req-impl-gap~1",
+      "version": "1",
+      "doctype": "req",
+      "title": "Requirement Definition",
+      "source": {
+        "file": "./missing-impl-coverage.md",
+        "line": "11"
+      },
+      "coverage_type": "SHALLOW",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\u26a0\ufe0f Item has shallow coverage but misses deep coverage"
+      ],
+      "covers": [
+        {
+          "id": "feature-impl-gap",
+          "version": "1",
+          "doctype": "feat"
+        }
+      ],
+      "covered_by": [
+        {
+          "id": "design-impl-gap",
+          "version": "1",
+          "doctype": "dsn",
+          "status": "approved",
+          "ownCoverageStatus": "UNCOVERED",
+          "deepCoverageStatus": "UNCOVERED",
+          "coveringStatus": "UNCOVERED"
+        }
+      ]
+    },
+    {
+      "id": "design-impl-gap",
+      "key": "design-impl-gap~1",
+      "version": "1",
+      "doctype": "dsn",
+      "title": "Design Definition",
+      "source": {
+        "file": "./missing-impl-coverage.md",
+        "line": "21"
+      },
+      "coverage_type": "ORPHANED",
+      "in_circular_dependency": false,
+      "failure_reasons": [
+        "\ud83d\udd0d Item is not covered by any other items (orphaned)"
+      ],
+      "covers": [
+        {
+          "id": "req-impl-gap",
+          "version": "1",
+          "doctype": "req"
+        }
+      ],
+      "covered_by": []
+    }
+  ]
+}
